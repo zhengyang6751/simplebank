@@ -2,9 +2,9 @@ name: Run unit tests
 
 on:
   push:
-    branches: [master]
+    branches: [ft/docker]
   pull_request:
-    branches: [master]
+    branches: [ft/docker]
 
 jobs:
   test:
