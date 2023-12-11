@@ -43,18 +43,10 @@ func main() {
 		log.Fatal().Err(err).Msg("cannot connect to db")
 	}
 
-	runDBMigration(config.MigrationURL, config.DBSource)
 
 	store := db.NewStore(connPool)
 
-	redisOpt := asynq.RedisClientOpt{
-		Addr: config.RedisAddress,
-	}
-
-	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
-	go runTaskProcessor(config, redisOpt, store)
-	go runGatewayServer(config, store, taskDistributor)
-	runGrpcServer(config, store, taskDistributor)
+	runGinServer(config, store)
 }
 
 func runDBMigration(migrationURL string, dbSource string) {
