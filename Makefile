@@ -1,7 +1,7 @@
 DB_URL=postgresql://root:secret@localhost:5432/simplebank?sslmode=disable
 
 network:
-	docker network create bank-network
+	docker network create bank_network
 
 postgres:
 	docker run --name postgres16 --network bank_network -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16
@@ -55,7 +55,7 @@ proto:
 	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
 	--grpc-gateway_out=pb --grpc-gateway_opt=paths=source_relative \
-	--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=simple_bank \
+	--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=simplebank \
 	proto/*.proto
 	statik -src=./doc/swagger -dest=./doc
 
